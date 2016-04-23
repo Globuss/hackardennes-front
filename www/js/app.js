@@ -189,53 +189,7 @@ angular.module('starter', ['ionic',
                     controller: 'MapCtrl'
                 }
             }
-        })
+        });
 
-
-})
-
-.config(function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-
-        .state('app', {
-            url: '/app',
-            abstract: true,
-            templateUrl: 'templates/menu.html',
-            controller: 'AppCtrl'
-        })
-
-        .state('app.route', {
-            url: '/route',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/route.html',
-                    controller: 'RouteCtrl'
-                }
-            }
-        })
-
-        .state('startRoute', {
-            cache: false,
-            url: '/startroute/:point',
-            templateUrl: "templates/startRoute/index.html",
-            controller: 'StartRouteCtrl',
-            params: {
-                point: null
-            }
-        })
-
-        .state('app.map', {
-            url: '/map',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/map/index.html',
-                    controller: 'MapCtrl'
-                }
-            }
-        })
-
-    ;
-
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/route');
+        $urlRouterProvider.otherwise('/app/route');
 });
