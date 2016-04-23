@@ -5,10 +5,13 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic',
-  'starter.controllers',
-  'leaflet-directive',
-  'app.factories',
-  'ngCordova'
+    'starter.controllers',
+    'leaflet-directive',
+    'app.factories',
+    'app.services',
+    'ngCordova',
+    'restangular',
+    'angularApiHydra'
 
 ])
 
@@ -68,7 +71,7 @@ angular.module('starter', ['ionic',
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-      
+
   .state('app.route', {
     url: '/route',
     views: {

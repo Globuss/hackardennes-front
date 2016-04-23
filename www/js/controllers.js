@@ -9,9 +9,10 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MapCtrl', function($scope, geoLocation, leafletData) {
+.controller('MapCtrl', function($scope, geoLocation, leafletData, Path) {
 
     console.log(geoLocation.getGeolocation().lat);
+    console.log
     var mainMarker = {
         lat: geoLocation.getGeolocation().lat,
         lng: geoLocation.getGeolocation().lng
@@ -26,7 +27,7 @@ angular.module('starter.controllers', [])
     var markers = [
         ["",49.761689,4.717770],
         ["",49.752374,4.720516],
-        ["",49.703549,4.938526],
+        ["",49.703549,4.938526]
     ];
 
     angular.extend($scope, {
@@ -44,7 +45,7 @@ angular.module('starter.controllers', [])
     markerArray.push([geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng]);
 
     leafletData.getMap().then(function (map) {
-        //map.zoomControl.remove();
+
         for (var i = 0; i < markers.length; i++) {
             marker = new L.marker([markers[i][1],markers[i][2]], {icon: redMarker})
             .bindPopup(markers[i][0])
