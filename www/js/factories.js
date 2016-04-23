@@ -35,4 +35,17 @@ angular.module('app.factories', [])
     }
 })
 
+
+.factory('Path', function (Restangular) {
+
+    return Restangular.service('paths');
+
+})
+
+.factory('Point', function (Restangular) {
+
+    return Restangular.service('points');
+
+})
+
 ;

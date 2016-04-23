@@ -23,9 +23,11 @@
     "cordova-plugin-geolocation",
     "cordova-plugin-compat",
     "com.unarin.cordova.beacon",
+    "https://github.com/katzer/cordova-plugin-local-notifications.git",
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ]
 }

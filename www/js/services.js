@@ -1,14 +1,18 @@
 angular.module('app.services', [])
 
-.service('Path', function (Restangular) {
 
-    return Restangular.service('paths');
+.service('loadMoreServiceRoute', function (Restangular, $q,geoLocation) {
 
-})
+        this.get = function (nextHref) {
+            var deferred = $q.defer();
+            Restangular.all(nextHref).getList()  // GET: /users
+            .then(function (data) {
+                // returns a list of users
+                deferred.resolve(data);
+            });
 
-.service('Point', function (Restangular) {
-
-    return Restangular.service('points');
+            return deferred.promise;
+        };
 
 })
 

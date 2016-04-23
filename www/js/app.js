@@ -9,6 +9,9 @@ angular.module('starter', ['ionic',
     'leaflet-directive',
     'app.factories',
     'app.services',
+    'app.filters',
+    'restangular',
+    'angularApiHydra',
     'ngCordova'
 
 ])
@@ -99,7 +102,6 @@ angular.module('starter', ['ionic',
         template: err.message
       });
 
-      geoLocation.setGeolocation(defaultLocalisation.latitude, defaultLocalisation.longitude)
     });
 
     var watch = $cordovaGeolocation.watchPosition({
@@ -109,7 +111,7 @@ angular.module('starter', ['ionic',
     }).then(function () {
         }, function (err) {
           // you need to enhance that point
-          geoLocation.setGeolocation(defaultLocalisation.latitude, defaultLocalisation.longitude);
+
         }, function (position) {
           geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
           // broadcast this event on the rootScope

@@ -1,32 +1,18 @@
 <ion-view view-title="Parcours">
-  <ion-nav-buttons side="right">
-    <a class="button button-positive pull-right" ui-sref="app.map"><span><i class="ion-location"> Carte</i></span></a>
-  </ion-nav-buttons>
   <ion-content scroll="false">
-    <ion-scroll scrollbar-y="false" class="refresher-scroll" style="height: 100%; overflow-y:hidden ">
+    <ion-scroll style="height: 100%; overflow-y:hidden ">
+      <ion-refresher refreshing-icon=""
+                     pulling-text="Tirer pour rafraîchir"
+                     refreshing-text="Chargement..."
+                     on-refresh="doRefresh()">
+      </ion-refresher>
       <ion-list>
-        <ion-item>Hello!</ion-item>
-        <ion-item href="#/detail">
-          Link to detail page
-        </ion-item>
-        <ion-item>Hello!</ion-item>
-        <ion-item href="#/detail">
-          Link to detail page
-        </ion-item>
-        <ion-item>Hello!</ion-item>
-        <ion-item href="#/detail">
-          Link to detail page
-        </ion-item> <ion-item>Hello!</ion-item>
-        <ion-item href="#/detail">
-          Link to detail page
-        </ion-item> <ion-item>Hello!</ion-item>
-        <ion-item href="#/detail">
-          Link to detail page
-        </ion-item> <ion-item>Hello!</ion-item>
-        <ion-item href="#/detail">
-          Link to detail page
-        </ion-item>
+       <ion-item ng-repeat="path in paths track by $index">
+         <div>{{path[0].name}}</div>
+         <div>{{path.distance | distance}}</div>
+       </ion-item>
       </ion-list>
+      <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>
     </ion-scroll>
   </ion-content>
 </ion-view>
