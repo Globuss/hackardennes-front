@@ -6,12 +6,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute) {
+.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicSlideBoxDelegate) {
 
     $scope.doRefresh = function() {
 
         $scope.paths = [];
         console.log(geoLocation.getGeolocation().lat);
+
+        $scope.noMoreItemsAvailable = false;
 
         var mainMarker = {
             lat: geoLocation.getGeolocation().lat,
@@ -61,7 +63,6 @@ angular.module('starter.controllers', [])
                 .addTo(map);
 
             }
-
             var bbox = L.latLngBounds(markerArray);
             //$scope.maxbounds.southWest = bbox.getSouthWest();
             //$scope.maxbounds.northEast = bbox.getNorthEast();
@@ -98,7 +99,7 @@ angular.module('starter.controllers', [])
                 $scope.noMoreItemsAvailable = true;
             }
             $scope.$broadcast('scroll.infiniteScrollComplete');
-
+            $ionicSlideBoxDelegate.update();
         });
 
     };
