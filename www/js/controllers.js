@@ -6,7 +6,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicSlideBoxDelegate) {
+.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicScrollDelegate) {
 
     $scope.doRefresh = function() {
 
@@ -80,6 +80,7 @@ angular.module('starter.controllers', [])
              }).addTo(map);*/
 
         });
+        $ionicScrollDelegate.resize();
         $scope.$broadcast('scroll.refreshComplete');
     };
 
@@ -98,8 +99,9 @@ angular.module('starter.controllers', [])
             if (!paths.metadata.nextPage) {
                 $scope.noMoreItemsAvailable = true;
             }
+            
             $scope.$broadcast('scroll.infiniteScrollComplete');
-            $ionicSlideBoxDelegate.update();
+
         });
 
     };
