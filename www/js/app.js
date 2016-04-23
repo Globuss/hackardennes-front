@@ -4,10 +4,46 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic',
+  'starter.controllers',
+  'leaflet-directive',
+  'app.factories',
+  'ngCordova'
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+])
+
+.run(function($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope) {
+  $ionicPlatform.ready(function () {
+
+    $cordovaGeolocation
+    .getCurrentPosition()
+    .then(function (position) {
+      geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
+    }, function (err) {
+      // you need to enhance that point
+      $ionicPopup.alert({
+        title: 'Ooops...',
+        template: err.message
+      });
+
+      geoLocation.setGeolocation(defaultLocalisation.latitude, defaultLocalisation.longitude)
+    });
+
+    var watch = $cordovaGeolocation.watchPosition({
+      frequency: 1000,
+      timeout: 3000,
+      enableHighAccuracy: false
+    }).then(function () {
+        }, function (err) {
+          // you need to enhance that point
+          geoLocation.setGeolocation(defaultLocalisation.latitude, defaultLocalisation.longitude);
+        }, function (position) {
+          geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
+          // broadcast this event on the rootScope
+          $rootScope.$broadcast('location:change', geoLocation.getGeolocation());
+        }
+    );
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -19,7 +55,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-  });
+
+  })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -32,42 +69,27 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+    .state('app.route', {
+      url: '/route',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/route.html',
+          controller: 'RouteCtrl'
+        }
+      }
+    })
+
+  .state('app.map', {
+    url: '/map',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/map/index.html',
+        controller: 'MapCtrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
+  ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/route');
 });
