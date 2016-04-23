@@ -68,9 +68,7 @@ angular.module('starter', ['ionic',
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-
-
-
+      
   .state('app.route', {
     url: '/route',
     views: {
