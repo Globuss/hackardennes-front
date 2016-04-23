@@ -18,120 +18,119 @@ angular.module('starter', ['ionic',
 
 .run(function($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope) {
   $ionicPlatform.ready(function () {
-   var delegate = new cordova.plugins.locationManager.Delegate();
+    if (window.cordova) {
 
-   delegate.didDetermineStateForRegion = function (pluginResult) {
-        console.log("a");
-   };
+        var delegate = new cordova.plugins.locationManager.Delegate();
 
-   delegate.didStartMonitoringForRegion = function (pluginResult) {
-        console.log("b");
-   };
+        delegate.didDetermineStateForRegion = function (pluginResult) {
+            console.log("a");
+        };
 
-   delegate.didRangeBeaconsInRegion = function (pluginResult) {
-        if(pluginResult.beacons.length > 0){
-            index = 0;
-            proxMax = pluginResult.beacons[index].proximity;
-            if(pluginResult.beacons.length > 1){
-                for(i=1;i<pluginResult.beacons.length;i++){
-                    if(pluginResult.beacons[i].proximity > pluginResult.beacons[index].proximity){
-                        index = i;
-                        proxMax = pluginResult.beacons[i].proximity;
+        delegate.didStartMonitoringForRegion = function (pluginResult) {
+            console.log("b");
+        };
+
+        delegate.didRangeBeaconsInRegion = function (pluginResult) {
+            if (pluginResult.beacons.length > 0) {
+                index = 0;
+                proxMax = pluginResult.beacons[index].proximity;
+                if (pluginResult.beacons.length > 1) {
+                    for (i = 1; i < pluginResult.beacons.length; i++) {
+                        if (pluginResult.beacons[i].proximity > pluginResult.beacons[index].proximity) {
+                            index = i;
+                            proxMax = pluginResult.beacons[i].proximity;
+                        }
                     }
                 }
+
+                minor = pluginResult.beacons[index].minor;
+                major = pluginResult.beacons[index].major;
+                console.log("Minor : " + minor);
+                console.log("Major : " + major);
+                console.log("Proximity : " + pluginResult.beacons[index].proximity);
+                value = '{"major":' + major + ',"minor":' + minor + '}';
+                //if(pluginResult.beacons[index].minor == "3" && pluginResult.beacons[index].major == "1"){
+
+                console.log(window.localStorage.getItem("beacon"));
+                console.log(window.localStorage.getItem("beacon") == 'undefined');
+                console.log(window.localStorage.getItem("beacon") != value);
+                if (window.localStorage.getItem("beacon") != value || window.localStorage.getItem("beacon") == 'undefined') {
+                    cordova.plugins.notification.local.schedule({
+                        id: 10,
+                        title: "Tourisme Ardennes",
+                        text: "La Place Ducal"
+                    });
+                    value = '{"major":' + major + ',"minor":' + minor + '}';
+                    window.localStorage.setItem("beacon", value);
+                }
+
+
+                //}
+
+
             }
+        };
 
-            minor = pluginResult.beacons[index].minor;
-            major = pluginResult.beacons[index].major;
-            console.log("Minor : " + minor);
-            console.log("Major : " + major);
-            console.log("Proximity : " + pluginResult.beacons[index].proximity);
-            value = '{"major":'+major+',"minor":'+minor+'}';
-            //if(pluginResult.beacons[index].minor == "3" && pluginResult.beacons[index].major == "1"){
+        cordova.plugins.notification.local.on("click", function (notification) {
+            alert("clicked: " + notification.id);
+        });
 
-            console.log(window.localStorage.getItem("beacon"));
-            console.log(window.localStorage.getItem("beacon") == 'undefined');
-            console.log(window.localStorage.getItem("beacon")!=value);
-            if(window.localStorage.getItem("beacon")!=value || window.localStorage.getItem("beacon") == 'undefined'){
-                cordova.plugins.notification.local.schedule({
-                                  id: 10,
-                                  title: "Tourisme Ardennes",
-                                  text: "La Place Ducal"
-                              });
-                  value = '{"major":'+major+',"minor":'+minor+'}';
-                  window.localStorage.setItem("beacon", value);
-            }
+        var uuid = '7473CEE4-6202-11E5-9D70-FEFF819CDC90';
+        var identifier = 'Bonjour';
+        var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);
 
+        cordova.plugins.locationManager.setDelegate(delegate);
 
+        // required in iOS 8+
+        cordova.plugins.locationManager.requestWhenInUseAuthorization();
+        // or cordova.plugins.locationManager.requestAlwaysAuthorization()
 
-            //}
+        cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
+        .fail(console.error)
+        .done(); // Create a region object.
 
-
-        }
-   };
-
-            cordova.plugins.notification.local.on("click", function(notification) {
-                alert("clicked: " + notification.id);
+    }
+        $cordovaGeolocation
+        .getCurrentPosition()
+        .then(function (position) {
+            geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
+        }, function (err) {
+            // you need to enhance that point
+            $ionicPopup.alert({
+                title: 'Ooops...',
+                template: err.message
             });
 
-   var uuid = '7473CEE4-6202-11E5-9D70-FEFF819CDC90';
-   var identifier = 'Bonjour';
-   var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);
+        });
 
-   cordova.plugins.locationManager.setDelegate(delegate);
+        var watch = $cordovaGeolocation.watchPosition({
+            frequency: 1000,
+            timeout: 3000,
+            enableHighAccuracy: false
+        }).then(function () {
+            }, function (err) {
+                // you need to enhance that point
 
-   // required in iOS 8+
-   cordova.plugins.locationManager.requestWhenInUseAuthorization();
-   // or cordova.plugins.locationManager.requestAlwaysAuthorization()
+            }, function (position) {
+                geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
+                // broadcast this event on the rootScope
+                $rootScope.$broadcast('location:change', geoLocation.getGeolocation());
+            }
+        );
 
-   cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
-       .fail(console.error)
-       .done(); // Create a region object.
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
 
-
-
-
-    $cordovaGeolocation
-    .getCurrentPosition()
-    .then(function (position) {
-      geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
-    }, function (err) {
-      // you need to enhance that point
-      $ionicPopup.alert({
-        title: 'Ooops...',
-        template: err.message
-      });
-
-    });
-
-    var watch = $cordovaGeolocation.watchPosition({
-      frequency: 1000,
-      timeout: 3000,
-      enableHighAccuracy: false
-    }).then(function () {
-        }, function (err) {
-          // you need to enhance that point
-
-        }, function (position) {
-          geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
-          // broadcast this event on the rootScope
-          $rootScope.$broadcast('location:change', geoLocation.getGeolocation());
         }
-    );
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        }
 
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-
-  })
+    })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
