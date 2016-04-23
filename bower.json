@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "angular-leaflet-directive": "angular-leaflet#^0.10.0",
-    "ngCordova": "^0.1.26-alpha"
+    "ngCordova": "^0.1.26-alpha",
+    "Leaflet.awesome-markers": "leaflet-awesome-markers#^2.0.2"
   }
 }

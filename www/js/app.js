@@ -62,22 +62,24 @@ angular.module('starter', ['ionic',
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
 
-    .state('app.route', {
-      url: '/route',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/route.html',
-          controller: 'RouteCtrl'
-        }
+
+
+  .state('app.route', {
+    url: '/route',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/route.html',
+        controller: 'RouteCtrl'
       }
-    })
+    }
+  })
 
   .state('app.map', {
     url: '/map',
