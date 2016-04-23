@@ -171,9 +171,11 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('ItemCtrl', function ($scope){
+.controller('StartRouteCtrl', function ($scope){
+
     $scope.minor = $stateParams.minor;
     $scope.major = $stateParams.major;
+
 
 
 

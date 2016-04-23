@@ -153,14 +153,13 @@ angular.module('starter', ['ionic',
     }
   })
 
-  .state('item', {
+  .state('startRoute', {
     cache: false,
-    url: '/item/:minor/:major',
-    templateUrl: "templates/item/index.html",
-    controller: 'ItemCtrl',
+    url: '/startroute/:point',
+    templateUrl: "templates/startRoute/index.html",
+    controller: 'StartRouteCtrl',
     params: {
-      minor: null,
-      major: null
+      point: null,
     }
   })
 
@@ -175,6 +174,7 @@ angular.module('starter', ['ionic',
   })
 
   ;
+    
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/route');
 });
