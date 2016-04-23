@@ -17,8 +17,8 @@
   <ion-side-menu side="left" class="main-menu">
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/route">
-          Parcours
+        <ion-item ng-repeat="t in themes" href="#/app/route/{{t.theme}}">
+          {{t.theme}}
         </ion-item>
       </ion-list>
     </ion-content>

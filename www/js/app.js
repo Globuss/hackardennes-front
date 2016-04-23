@@ -133,11 +133,14 @@ angular.module('starter', ['ionic',
             })
 
             .state('app.route', {
-                url: '/route',
+                url: '/route/:theme',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/route.html',
-                        controller: 'RouteCtrl'
+                        controller: 'RouteCtrl',
+                        params: {
+                                    theme: null
+                                }
                     }
                 }
             })

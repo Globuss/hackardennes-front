@@ -1,9 +1,17 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
 
     $scope.myWidth = window.innerWidth;
+    var req = $http.get('http://un-zero-un-api.herokuapp.com/paths/themes/all');
+       req.success(function(data,status,headers,config){
+          console.log(data);
+          $scope.themes = data;
 
+       });
+       req.error(function(data,status,headers,config){
+          alert('bug');
+       });
 })
 
 .controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute) {
