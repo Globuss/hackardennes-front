@@ -1,4 +1,4 @@
-<ion-view view-title="">
+<ion-view class="path-list" view-title="">
   <ion-content scroll="false">
     <ion-scroll style="height: 100%; overflow-y:hidden ">
       <ion-refresher refreshing-icon=""
@@ -7,9 +7,11 @@
                      on-refresh="doRefresh()">
       </ion-refresher>
       <ion-list>
-       <ion-item ng-repeat="path in paths track by $index">
+       <ion-item ng-repeat="path in paths track by $index"
+                 ng-style="{'background-image':'url({{path[0].points[0].image}})'}">
          <div>{{path[0].name}}</div>
          <div>{{path.distance | distance}}</div>
+
        </ion-item>
       </ion-list>
       <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>

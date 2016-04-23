@@ -9790,7 +9790,8 @@ a.button {
   transition-duration: 0s; }
 
 .main-menu {
-  background: #aae6bf; }
+  background: #aae6bf;
+  width: 100vw !important; }
   .main-menu .item-content {
     background: none; }
   .main-menu .item {
@@ -9806,10 +9807,14 @@ a.button {
     align-items: flex-start;
     justify-content: center; }
   .main-menu .main-menu-top-bar {
-    text-align: right; }
+    text-align: right;
+    padding: 0 .5em; }
   .main-menu .close-button {
     color: #fff;
     display: inline-block; }
+
+.menu-open .menu-content {
+  transform: translate3d(100%, 0, 0) !important; }
 
 body {
   font-family: "Raleway", sans-serif; }

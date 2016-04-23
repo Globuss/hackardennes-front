@@ -1,6 +1,8 @@
 .main-menu {
     background: $app-color;
 
+    width: 100vw !important;
+
     .item-content {
         background: none;
     }
@@ -23,11 +25,18 @@
 
     .main-menu-top-bar {
         text-align: right;
+        padding: 0 .5em;
     }
 
     .close-button{
         color: $white;
         display: inline-block;
+    }
+}
+
+.menu-open {
+    .menu-content {
+        transform: translate3d(100%, 0, 0) !important;
     }
 }
 
