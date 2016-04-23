@@ -11,7 +11,7 @@
                  ng-style="{'background-image':'url({{path[0].points[0].image}})'}">
          <div>{{path[0].name}}</div>
          <div>{{path.distance | distance}}</div>
-
+           <a href="#/app/route{{path[0]['@id']}}">{{path[0].name}}</a>
        </ion-item>
       </ion-list>
       <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>

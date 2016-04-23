@@ -109,6 +109,18 @@ angular.module('starter.controllers', [])
 
 })
 
+.controller('RouteDetailCtrl', function($scope, Restangular, $stateParams) {
+    Restangular.oneUrl('/paths/' + $stateParams.id).get().then(function(path) {
+        $scope.path = path;
+    });
+})
+
+.controller('PointCtrl', function($scope, Restangular, $stateParams) {
+    Restangular.oneUrl('/points/' + $stateParams.id).get().then(function(point) {
+        $scope.point = point;
+    });
+})
+
 .controller('MapCtrl', function($scope, geoLocation, leafletData) {
 
     console.log(geoLocation.getGeolocation().lat);

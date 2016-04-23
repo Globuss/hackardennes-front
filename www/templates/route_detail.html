@@ -1,0 +1,13 @@
+<ion-view class="path-list" view-title="">
+  <ion-content scroll="false">
+    <ion-scroll style="height: 100%; overflow-y:hidden ">
+        {{path.name}}
+
+        <div>
+            <div ng-repeat="point in path.points">
+                <a href="#/app{{point['@id']}}">{{point.name}}</a>
+            </div>
+        </div>
+    </ion-scroll>
+  </ion-content>
+</ion-view>
