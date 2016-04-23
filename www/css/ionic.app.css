@@ -9788,3 +9788,34 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.main-menu {
+  background: #aae6bf; }
+  .main-menu .item-content {
+    background: none; }
+  .main-menu .item {
+    background: none;
+    color: #fff;
+    font-size: 15vw;
+    font-weight: 300;
+    border-bottom: none; }
+  .main-menu .list {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center; }
+
+body {
+  font-family: "Raleway", sans-serif; }
+
+.top-bar {
+  background: #aae6bf;
+  color: #fff; }
+  .top-bar .button {
+    color: #fff; }
+
+.map-nav {
+  background: #aae6bf; }
+  .map-nav .button {
+    color: #fff; }

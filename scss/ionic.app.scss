@@ -15,9 +15,40 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+
+$app-color: #aae6bf;
+$font-base:  'Raleway', sans-serif;
+$white: #fff;
+$black: #111;
+
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+@import "menu.app";
+
+body {
+    font-family: $font-base
+}
+
+.top-bar {
+    background: $app-color;
+    color: $white;
+
+    .button {
+        color: $white;
+    }
+}
+
+.map-nav {
+    background: $app-color;
+
+    .button {
+        color: $white;
+    }
+}
+
+
 
