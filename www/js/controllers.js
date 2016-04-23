@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MapCtrl', function($scope, geoLocation, leafletData, Path) {
+.controller('MapCtrl', function($scope, geoLocation, leafletData) {
 
     console.log(geoLocation.getGeolocation().lat);
     console.log

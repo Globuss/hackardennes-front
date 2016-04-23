@@ -9,9 +9,7 @@ angular.module('starter', ['ionic',
     'leaflet-directive',
     'app.factories',
     'app.services',
-    'ngCordova',
-    'restangular',
-    'angularApiHydra'
+    'ngCordova'
 
 ])
 
