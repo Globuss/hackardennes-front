@@ -72,6 +72,15 @@ angular.module('starter.controllers', [])
 
 
 })
+
+
+.controller('ItemCtrl', function ($scope){
+    $scope.minor = $stateParams.minor;
+    $scope.major = $stateParams.major;
+
+
+
+})
 ;
 
 

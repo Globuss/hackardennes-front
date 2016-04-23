@@ -15,6 +15,78 @@ angular.module('starter', ['ionic',
 
 .run(function($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope) {
   $ionicPlatform.ready(function () {
+   var delegate = new cordova.plugins.locationManager.Delegate();
+
+   delegate.didDetermineStateForRegion = function (pluginResult) {
+        console.log("a");
+   };
+
+   delegate.didStartMonitoringForRegion = function (pluginResult) {
+        console.log("b");
+   };
+
+   delegate.didRangeBeaconsInRegion = function (pluginResult) {
+        if(pluginResult.beacons.length > 0){
+            index = 0;
+            proxMax = pluginResult.beacons[index].proximity;
+            if(pluginResult.beacons.length > 1){
+                for(i=1;i<pluginResult.beacons.length;i++){
+                    if(pluginResult.beacons[i].proximity > pluginResult.beacons[index].proximity){
+                        index = i;
+                        proxMax = pluginResult.beacons[i].proximity;
+                    }
+                }
+            }
+
+            minor = pluginResult.beacons[index].minor;
+            major = pluginResult.beacons[index].major;
+            console.log("Minor : " + minor);
+            console.log("Major : " + major);
+            console.log("Proximity : " + pluginResult.beacons[index].proximity);
+            value = '{"major":'+major+',"minor":'+minor+'}';
+            //if(pluginResult.beacons[index].minor == "3" && pluginResult.beacons[index].major == "1"){
+
+            console.log(window.localStorage.getItem("beacon"));
+            console.log(window.localStorage.getItem("beacon") == 'undefined');
+            console.log(window.localStorage.getItem("beacon")!=value);
+            if(window.localStorage.getItem("beacon")!=value || window.localStorage.getItem("beacon") == 'undefined'){
+                cordova.plugins.notification.local.schedule({
+                                  id: 10,
+                                  title: "Tourisme Ardennes",
+                                  text: "La Place Ducal"
+                              });
+                  value = '{"major":'+major+',"minor":'+minor+'}';
+                  window.localStorage.setItem("beacon", value);
+            }
+
+
+
+            //}
+
+
+        }
+   };
+
+            cordova.plugins.notification.local.on("click", function(notification) {
+                alert("clicked: " + notification.id);
+            });
+
+   var uuid = '7473CEE4-6202-11E5-9D70-FEFF819CDC90';
+   var identifier = 'Bonjour';
+   var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);
+
+   cordova.plugins.locationManager.setDelegate(delegate);
+
+   // required in iOS 8+
+   cordova.plugins.locationManager.requestWhenInUseAuthorization();
+   // or cordova.plugins.locationManager.requestAlwaysAuthorization()
+
+   cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
+       .fail(console.error)
+       .done(); // Create a region object.
+
+
+
 
     $cordovaGeolocation
     .getCurrentPosition()
@@ -77,6 +149,17 @@ angular.module('starter', ['ionic',
         templateUrl: 'templates/route.html',
         controller: 'RouteCtrl'
       }
+    }
+  })
+
+  .state('item', {
+    cache: false,
+    url: '/item/:minor/:major',
+    templateUrl: "templates/item/index.html",
+    controller: 'ItemCtrl',
+    params: {
+      minor: null,
+      major: null
     }
   })
 
