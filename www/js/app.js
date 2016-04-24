@@ -3,6 +3,7 @@ const identifier = '1z1beacons';
 
 var nId = 0;
 var nearest = null;
+var count = 0;
 
 angular.module('starter', ['ionic',
     'starter.controllers',
@@ -20,7 +21,7 @@ angular.module('starter', ['ionic',
         if (window.cordova) {
             const beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);
             var delegate = new cordova.plugins.locationManager.Delegate();
-            var count = 0;
+
             delegate.didDetermineStateForRegion = function (pluginResult) {
                 console.log('a');
             };
@@ -33,21 +34,19 @@ angular.module('starter', ['ionic',
                 if (0 === pluginResult.beacons.length) {
                     if (count > 2) {
                         nearest = null;
+                        $rootScope.$broadcast('beacons:changed', nearest);
                     }
-
-                    $rootScope.$broadcast('beacons:changed', nearest);
-                    count += 1;
+                    count++;
 
                     return;
-                }else{
-                    count = 0;
                 }
 
+                count = 0;
                 nearest = pluginResult.beacons.reduce(function (memo, beacon) {
                     if (memo && memo.accuracy < beacon.accuracy) {
                         return memo;
                     }
-                    
+
                     return beacon;
                 });
 
