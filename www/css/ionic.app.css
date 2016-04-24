@@ -9792,16 +9792,21 @@ a.button {
 .main-menu {
   background: #aae6bf;
   width: 100vw !important; }
-  .main-menu .item-content {
-    background: none; }
   .main-menu .item {
     background: none;
     color: #fff;
-    font-size: 3.4em;
-    font-weight: 300;
-    border-bottom: none; }
+    border-bottom: none;
+    overflow: visible;
+    line-height: 1; }
+  .main-menu .item-content {
+    background: none;
+    font-size: 11vw;
+    display: inline-block;
+    line-height: 1;
+    padding: 0; }
   .main-menu .list {
-    height: 80vh;
+    padding-left: 2em;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -9812,6 +9817,10 @@ a.button {
   .main-menu .close-button {
     color: #111;
     display: inline-block; }
+  .main-menu .main-menu-all-route {
+    margin: 1em 0; }
+    .main-menu .main-menu-all-route .item-content {
+      font-size: 8vw; }
 
 .route-list .route-link {
   display: flex;
@@ -9865,7 +9874,8 @@ a.button {
   font-size: .8em; }
 
 .parcours-header .parcours-header-photo {
-  background-size: cover; }
+  background-size: cover;
+  background-color: #dedede; }
   .parcours-header .parcours-header-photo:before {
     padding-top: 45%;
     content: '';
@@ -9910,6 +9920,19 @@ a.button {
   padding: .8em 1.2em;
   border: none;
   font-size: 1em; }
+
+.point-content {
+  padding-bottom: 5em; }
+  .point-content .point-content-title {
+    font-weight: 200;
+    font-size: 2.2em;
+    font-family: inherit; }
+  .point-content .point-content-head {
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 1em 0;
+    color: #666; }
 
 body {
   font-family: "Raleway", sans-serif; }

@@ -1,6 +1,7 @@
 .parcours-header {
     .parcours-header-photo {
         background-size: cover;
+        background-color: $light-grey;
 
         &:before {
             padding-top:     45%;
@@ -36,7 +37,6 @@
 }
 
 .parcours-page {
-
     .parcours-page-description {
         font-size: 1.2em;
         line-height: 1.5;

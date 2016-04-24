@@ -1,9 +1,29 @@
 <ion-view class="path-list" view-title="">
   <ion-content scroll="false">
     <ion-scroll style="height: 100%; overflow-y:hidden ">
-        {{point.name}}
-
-        Chauve qui peut.
+        <div class="parcours-header">
+            <div class="parcours-header-photo"
+                 style="background-image:url({{point.image}})">
+            </div>
+            <div class="margin-container">
+                <div class="parcours-header-theme">{{theme}}</div>
+                <div class="parcours-header-positions">
+                    <div class="parcours-header-distance">35km</div>
+                    <div class="parcours-header-city">{{path.city}}</div>
+                </div>
+                <h1 class="parcours-header-title">
+                    {{path.name}}
+                </h1>
+            </div>
+        </div>
+        <div class="point-content margin-container">
+            <h2 class="point-content-title">
+                {{point.name}}
+            </h2>
+            <div class="point-content-head">
+                {{point.description}}
+            </div>
+        </div>
     </ion-scroll>
   </ion-content>
 </ion-view>

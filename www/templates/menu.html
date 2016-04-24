@@ -21,12 +21,12 @@
             </button>
         </div>
       <ion-list>
-        <ion-item menu-close href="#/app/route">
-          Accueil
-        </ion-item>
         <ion-item menu-close ng-repeat="t in themes" href="#/app/route/{{t.theme}}">
           {{t.theme}}
         </ion-item>
+          <ion-item class="main-menu-all-route" menu-close href="#/app/route">
+              Tous les parcours
+          </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>
