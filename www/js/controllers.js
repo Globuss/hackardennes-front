@@ -131,6 +131,9 @@ angular.module('starter.controllers', [])
 .controller('PointCtrl', function($scope, Restangular, $stateParams) {
     Restangular.oneUrl('/points/' + $stateParams.id).get().then(function(point) {
         $scope.point = point;
+        Restangular.oneUrl(point.path).get().then(function(path) {
+            $scope.path = path;
+        });
     });
 })
 
