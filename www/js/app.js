@@ -32,6 +32,8 @@ angular.module('starter', ['ionic',
 
             delegate.didRangeBeaconsInRegion = function (pluginResult) {
                 if (0 === pluginResult.beacons.length) {
+                    nearest = null;
+
                     return;
                 }
 
@@ -74,7 +76,7 @@ angular.module('starter', ['ionic',
                     .oneUrl('/points/major/' + nearest.major + '/minor/'+ nearest.minor).get()
                     .then(function(point) {
                         $state.go('app.route');
-                        $state.go('app.point', {id: point['@id'].substr(point['@id'].indexOf('/'))});
+                        $state.go('app.point', {id:point['@id'].substr(point['@id'].indexOf('/', 1) +  1)});
                     });
 
             });
