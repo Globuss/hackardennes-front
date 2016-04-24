@@ -16,7 +16,7 @@ angular.module('starter', ['ionic',
     'ngCordova'
 
 ])
-.run(function ($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope) {
+.run(function ($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope, $http) {
     $ionicPlatform.ready(function () {
         if (window.cordova) {
 
@@ -43,25 +43,33 @@ angular.module('starter', ['ionic',
                         }
                     }
 
-                    minor = pluginResult.beacons[index].minor;
-                    major = pluginResult.beacons[index].major;
+                    var minor = pluginResult.beacons[index].minor;
+                    var major = pluginResult.beacons[index].major;
                     console.log("Minor : " + minor);
                     console.log("Major : " + major);
                     console.log("Proximity : " + pluginResult.beacons[index].proximity);
-                    value = '{"major":' + major + ',"minor":' + minor + '}';
+                    var value = '{"major":' + major + ',"minor":' + minor + '}';
                     //if(pluginResult.beacons[index].minor == "3" && pluginResult.beacons[index].major == "1"){
 
                     console.log(window.localStorage.getItem("beacon"));
                     console.log(window.localStorage.getItem("beacon") == 'undefined');
                     console.log(window.localStorage.getItem("beacon") != value);
+
                     if (window.localStorage.getItem("beacon") != value || window.localStorage.getItem("beacon") == 'undefined') {
-                        cordova.plugins.notification.local.schedule({
-                            id: 10,
-                            title: "Tourisme Ardennes",
-                            text: "La Place Ducal"
-                        });
-                        value = '{"major":' + major + ',"minor":' + minor + '}';
-                        window.localStorage.setItem("beacon", value);
+                    var req = $http.get('http://un-zero-un-api.herokuapp.com/points/major/'+major+'/minor/'+minor);
+                           req.success(function(data,status,headers,config){
+                              cordova.plugins.notification.local.schedule({
+                                                          id: 10,
+                                                          title: "Tourisme Ardennes",
+                                                          text: data.name
+                                                      });
+                                                      value = '{"major":' + major + ',"minor":' + minor + '}';
+                                                      window.localStorage.setItem("beacon", value);
+                           });
+                           req.error(function(data,status,headers,config){
+
+                           });
+
                     }
 
 
