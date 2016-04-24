@@ -21,6 +21,9 @@
             </button>
         </div>
       <ion-list>
+        <ion-item menu-close href="#/app/route">
+          Accueil
+        </ion-item>
         <ion-item menu-close ng-repeat="t in themes" href="#/app/route/{{t.theme}}">
           {{t.theme}}
         </ion-item>
