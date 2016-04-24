@@ -33,12 +33,11 @@ angular.module('starter', ['ionic',
                 if (0 === pluginResult.beacons.length) {
                     if (count > 2) {
                         nearest = null;
-                        count = 0;
                     }
 
                     $rootScope.$broadcast('beacons:changed', nearest);
                     count += 1;
-                    
+
                     return;
                 }
 
@@ -46,8 +45,8 @@ angular.module('starter', ['ionic',
                     if (memo && memo.accuracy < beacon.accuracy) {
                         return memo;
                     }
-                    count = 0;
 
+                    count = 0;
                     return beacon;
                 });
 
