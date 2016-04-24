@@ -10,9 +10,14 @@
        <ion-item class="route-item" ng-repeat="path in paths track by $index">
            <a class="route-link" href="#/app/route{{path[0]['@id']}}"
               ng-style="{'background-image':'url({{path[0].points[0].image}})'}">
-               <div>{{path[0].theme}}</div>
-               <div>{{path[0].name}}</div>
-               <div>{{path.distance | distance}}</div>
+               <div class="route-link-inner">
+                   <div class="route-link-theme">{{path[0].theme}}</div>
+                   <div class="route-link-positions">
+                       <div class="route-link-distance">{{path.distance | distance}}</div>
+                       <div class="route-link-city">{{path[0].city}}</div>
+                   </div>
+                   <div class="route-link-title">{{path[0].name}}</div>
+               </div>
            </a>
        </ion-item>
       </ion-list>

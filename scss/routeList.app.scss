@@ -1,10 +1,65 @@
 .route-list {
     .route-link {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-decoration: none;
+        color: $white;
+        background-size: cover;
+
+
+        &:after {
+            display: block;
+            padding-top: 45%;
+            content: '';
+        }
+
+        &:before {
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(171, 171, 171, 0.50), rgba(125, 125, 125, 0));
+            content: '';
+        }
     }
 
     .route-item {
         padding: 0;
+        border: none;
     }
-    
+
+    .route-link-inner {
+        height: auto;
+        max-width: 75%;
+        position: relative;
+        z-index: 1;
+        padding: 1.5em 2.5em;
+    }
+
+    .route-link-positions {
+        color: $black;
+    }
+
+    .route-link-title {
+        font-size: 1.3em;
+        font-weight: 800;
+        white-space: normal;
+        line-height: 1;
+    }
+
+    .route-link-distance {
+        font-size: 2em;
+        font-weight: 200;
+        display: inline-block;
+    }
+
+    .route-link-city {
+        display: inline-block;
+        font-weight: bold;
+        font-size: .8em;
+    }
+
 }

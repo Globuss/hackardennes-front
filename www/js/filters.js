@@ -6,9 +6,9 @@ angular.module('app.filters', [])
         if (distance < 1)
         {
             distance = distance * 100;
-            distance = $filter('number')(distance, 2) +' m';
+            distance = $filter('number')(distance, 0) +' m';
         }else{
-            distance = $filter('number')(distance, 2) +' km';
+            distance = $filter('number')(distance, 0) +' km';
         }
 
         return distance;
