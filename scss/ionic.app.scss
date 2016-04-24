@@ -28,6 +28,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 @import "menu.app";
+@import "routeList.app";
 
 body {
     font-family: $font-base

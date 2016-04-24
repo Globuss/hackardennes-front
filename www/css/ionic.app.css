@@ -9797,7 +9797,7 @@ a.button {
   .main-menu .item {
     background: none;
     color: #fff;
-    font-size: 15vw;
+    font-size: 3.4em;
     font-weight: 300;
     border-bottom: none; }
   .main-menu .list {
@@ -9812,6 +9812,12 @@ a.button {
   .main-menu .close-button {
     color: #fff;
     display: inline-block; }
+
+.route-list .route-link {
+  display: block; }
+
+.route-list .route-item {
+  padding: 0; }
 
 body {
   font-family: "Raleway", sans-serif; }
