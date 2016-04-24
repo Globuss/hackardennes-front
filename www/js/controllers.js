@@ -25,10 +25,7 @@ angular.module('starter.controllers', [])
         $scope.loadMore(true);
 
     };
-        var theme = '';
-        if($stateParams.theme != null){
-            theme = '&theme='+$stateParams.theme;
-        }
+        
         Path.getList({lat:geoLocation.getGeolocation().lat, long:geoLocation.getGeolocation().lng}).then(function (paths) {
 
             var redMarker = L.AwesomeMarkers.icon({
