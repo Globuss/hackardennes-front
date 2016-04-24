@@ -228,7 +228,9 @@ angular.module('starter.controllers', [])
 
         //Affiche marqueurs avec itineraire
         leafletData.getMap().then(function (map) {
-
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '',
+            }).addTo(map);
           L.Routing.control({
                 waypoints : markersArray
             }).addTo(map);
