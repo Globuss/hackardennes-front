@@ -1,8 +1,30 @@
 <ion-view class="path-list" view-title="">
   <ion-content scroll="false">
-    <ion-scroll style="height: 100%; overflow-y:hidden ">
-        {{path.name}}
+    <ion-scroll class="parcours-page" style="height: 100%; overflow-y:hidden ">
 
+        <div class="parcours-header">
+            <div class="parcours-header-photo"
+                 style="background-image:url({{path.points[0].image}})">
+            </div>
+            <div class="margin-container">
+                <div class="parcours-header-theme">{{path[0].theme}}</div>
+                <div class="parcours-header-positions">
+                    <div class="parcours-header-distance">35km</div>
+                    <div class="parcours-header-city">{{path.city}}</div>
+                </div>
+                <h1 class="parcours-header-title">
+                    {{path.name}}
+                </h1>
+            </div>
+        </div>
+        <div class="parcours-page-description margin-container">
+            {{path.points[0].description}}
+            <div class="parcours-page-actions">
+                <button class="parcours-page-button">
+                    Aller sur le parcours
+                </button>
+            </div>
+        </div>
         <div>
             <div ng-repeat="point in path.points">
                 <a href="#/app{{point['@id']}}">{{point.name}}</a>

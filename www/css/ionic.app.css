@@ -9864,6 +9864,53 @@ a.button {
   font-weight: bold;
   font-size: .8em; }
 
+.parcours-header .parcours-header-photo {
+  background-size: cover; }
+  .parcours-header .parcours-header-photo:before {
+    padding-top: 45%;
+    content: '';
+    display: block; }
+
+.parcours-header .parcours-header-title {
+  font-size: 2.4em;
+  font-weight: 900;
+  color: #111;
+  font-family: "Raleway", sans-serif;
+  margin: .5em 0;
+  line-height: 1; }
+
+.parcours-header .parcours-header-distance {
+  display: inline-block;
+  font-size: 3.4em;
+  font-weight: 200; }
+
+.parcours-header .parcours-header-city {
+  display: inline-block;
+  font-weight: bold;
+  font-size: .8em; }
+
+.parcours-header .margin-container {
+  padding-top: 2em; }
+
+.parcours-page .parcours-page-description {
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: 400;
+  padding: 1em 0;
+  color: #666; }
+
+.parcours-page .parcours-page-actions {
+  text-align: center;
+  padding: 2em 0; }
+
+.parcours-page .parcours-page-button {
+  background: #111;
+  color: #fff;
+  display: inline-block;
+  padding: .8em 1.2em;
+  border: none;
+  font-size: 1em; }
+
 body {
   font-family: "Raleway", sans-serif; }
 
@@ -9877,3 +9924,7 @@ body {
   background: #aae6bf; }
   .map-nav .button {
     color: #111; }
+
+.margin-container {
+  margin-left: 10vw;
+  margin-right: 10vw; }

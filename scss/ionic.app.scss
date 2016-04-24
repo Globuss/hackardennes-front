@@ -20,6 +20,10 @@ $app-color: #aae6bf;
 $font-base:  'Raleway', sans-serif;
 $white: #fff;
 $black: #111;
+$darkgrey: #666;
+
+
+$layout-margin: 10vw;
 
 
 // The path for our ionicons font files, relative to the built CSS in www/css
@@ -29,6 +33,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 @import "menu.app";
 @import "routeList.app";
+@import "parcours.app";
 
 body {
     font-family: $font-base
@@ -51,8 +56,7 @@ body {
     }
 }
 
-
-.path-list {
-
+.margin-container {
+    margin-left: $layout-margin;
+    margin-right: $layout-margin;
 }
-
