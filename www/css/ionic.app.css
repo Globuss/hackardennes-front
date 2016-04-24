@@ -9849,7 +9849,7 @@ a.button {
 
 .route-list .route-link-inner {
   height: auto;
-  max-width: 75%;
+  max-width: 80%;
   position: relative;
   z-index: 1;
   padding: 1.5em 2.5em; }
@@ -9873,6 +9873,11 @@ a.button {
   font-weight: bold;
   font-size: .8em; }
 
+.route-list .route-link-theme {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: .9em; }
+
 .parcours-header .parcours-header-photo {
   background-size: cover;
   background-color: #dedede; }
@@ -9881,18 +9886,24 @@ a.button {
     content: '';
     display: block; }
 
+.parcours-header .parcours-header-theme {
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 200; }
+
 .parcours-header .parcours-header-title {
   font-size: 2.4em;
   font-weight: 900;
   color: #111;
   font-family: "Raleway", sans-serif;
-  margin: .5em 0;
+  margin: 0;
   line-height: 1; }
 
 .parcours-header .parcours-header-distance {
   display: inline-block;
   font-size: 3.4em;
-  font-weight: 200; }
+  font-weight: 200;
+  position: relative; }
 
 .parcours-header .parcours-header-city {
   display: inline-block;
@@ -9901,6 +9912,36 @@ a.button {
 
 .parcours-header .margin-container {
   padding-top: 2em; }
+
+.parcours-header .legend {
+  font-size: .25em;
+  display: block;
+  background: #111;
+  color: #fff;
+  padding: 0 .5em;
+  line-height: 1.25;
+  font-weight: 400;
+  position: absolute;
+  margin-bottom: .4em;
+  left: 50%;
+  top: -100%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap; }
+  .parcours-header .legend:after {
+    display: block;
+    width: .5em;
+    height: .5em;
+    content: '';
+    background: #111;
+    transform: translate(-50%, 50%) rotate(45deg);
+    z-index: -1;
+    position: absolute;
+    left: 50%;
+    bottom: 0; }
+
+.parcours-header .on-position {
+  font-size: 3.4em;
+  margin-top: .1em; }
 
 .parcours-page .parcours-page-description {
   font-size: 1.2em;
@@ -9922,10 +9963,11 @@ a.button {
   font-size: 1em; }
 
 .point-content {
-  padding-bottom: 5em; }
+  padding-bottom: 5em;
+  padding-top: 2em; }
   .point-content .point-content-title {
     font-weight: 200;
-    font-size: 2.1em;
+    font-size: 2.3em;
     font-family: inherit;
     padding-left: 30%;
     position: relative; }
