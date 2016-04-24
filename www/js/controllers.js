@@ -21,69 +21,66 @@ angular.module('starter.controllers', [])
         $scope.nearest = nearest;
     });
 
+
     $scope.doRefresh = function() {
 
-        $scope.paths = [];
-        console.log(geoLocation.getGeolocation().lat);
+        Path.getList({lat:geoLocation.getGeolocation().lat, long:geoLocation.getGeolocation().lng}).then(function (paths) {
 
-        $scope.noMoreItemsAvailable = false;
+            var redMarker = L.AwesomeMarkers.icon({
+                icon: 'coffee',
+                prefix: 'fa',
+                markerColor: 'red'
+            });
 
-        var mainMarker = {
-            lat: geoLocation.getGeolocation().lat,
-            lng: geoLocation.getGeolocation().lng
-        };
+            var positionMarker = L.AwesomeMarkers.icon({
+                icon: 'user',
+                prefix: 'fa',
+                markerColor: 'blue'
+            });
 
-        var redMarker = L.AwesomeMarkers.icon({
-            icon: 'coffee',
-            prefix: 'fa',
-            markerColor: 'red'
-        });
+            var markers = [];
+            var markersBounds = [];
+             var i = 0;
+            angular.forEach(paths, function(value, key) {
+                if (i < 5) {
+                markersBounds.push([value[0].points[0].latitude,value[0].points[0].longitude]);
+                }
+                markers.push(["23",value[0].points[0].latitude,value[0].points[0].longitude]);
+                i += 1;
+            });
+            markersBounds.push([geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng]);
 
-        var positionMarker = L.AwesomeMarkers.icon({
-            icon: 'user',
-            prefix: 'fa',
-            markerColor: 'blue'
-        });
+            var position =
+                ["", geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng];
 
-        var position =
-            ["", geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng];
+            angular.extend($scope, {
+                maxbounds: {}
+            });
 
-        var markers = [
-            ["", 49.761689, 4.717770],
-            ["", 49.752374, 4.720516],
-            ["", 49.703549, 4.938526]
-        ];
+            leafletData.getMap().then(function (map) {
 
-        angular.extend($scope, {
-            maxbounds: {}
-        });
-
-        var markerArray = [];
-        markerArray.push([49.761689, 4.717770]);
-        markerArray.push([49.752374, 4.720516]);
-        markerArray.push([49.703549, 4.938526]);
-        markerArray.push([geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng]);
-
-        leafletData.getMap().then(function (map) {
-
-            position = new L.marker([position[1], position[2]], {icon: positionMarker})
-            .bindPopup(position[0])
-            .addTo(map);
-
-            for (var i = 0; i < markers.length; i++) {
-                marker = new L.marker([markers[i][1], markers[i][2]], {icon: redMarker})
-                .bindPopup(markers[i][0])
+                position = new L.marker([position[1], position[2]], {icon: positionMarker})
+                .bindPopup(position[0])
                 .addTo(map);
 
-            }
-            var bbox = L.latLngBounds(markerArray);
-            //$scope.maxbounds.southWest = bbox.getSouthWest();
-            //$scope.maxbounds.northEast = bbox.getNorthEast();
-            map.fitBounds(bbox);
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '',
-            }).addTo(map);
-            
+                for (var i = 0; i < markers.length; i++) {
+                    marker = new L.marker([markers[i][1], markers[i][2]], {icon: redMarker})
+                    .bindPopup(markers[i][0])
+                    .addTo(map);
+
+                }
+                var bbox = L.latLngBounds(markersBounds);
+                //$scope.maxbounds.southWest = bbox.getSouthWest();
+                //$scope.maxbounds.northEast = bbox.getNorthEast();
+                map.fitBounds(bbox);
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '',
+                }).addTo(map);
+        });
+
+        $scope.paths = [];
+        $scope.noMoreItemsAvailable = false;
+
             /*L.Routing.control({
              waypoints: [
              L.latLng(57.74, 11.94),
@@ -112,7 +109,7 @@ angular.module('starter.controllers', [])
 
         );
             $scope.nextPage = paths.metadata.nextPage;
-            console.log($scope.nextPage);
+
             if (!paths.metadata.nextPage) {
                 $scope.noMoreItemsAvailable = true;
             }
