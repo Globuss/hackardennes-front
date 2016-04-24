@@ -8,7 +8,7 @@
       </ion-refresher>
       <ion-list class="route-list">
 
-      <ion-item class="point-notification">
+      <ion-item class="point-notification" ng-if="nearest != null">
           <div class="point-notification-bicon">
 
           </div>
@@ -17,15 +17,15 @@
                   Vous êtes ici
               </div>
               <div class="point-notification-name">
-                  Maison des ailleurs
+                  {{nearest.name}}
               </div>
               <div class="point-notification-description">
-                  Au début du Moyen Âge, la forêt d'Ardenne est inhospitalière, d'une sauvage beauté. Elle offre aux ermites puis aux moines une terre promise à leur solitude et leur recueillement. Des abbayes naissent dans les vallées les plus secrètes comme Saint-Hubert,
+                  {{nearest.description}}
               </div>
               <div class="point-notification-actions">
-                  <button class="point-notification-button">
+                  <a class="point-notification-button" href="#/app{{nearest['@id']}}">
                       Lire la suite
-                  </button>
+                  </a>
             </div>
           </div>
       </ion-item>

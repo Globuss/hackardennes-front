@@ -2,7 +2,7 @@ const uuid       = '7473CEE4-6202-11E5-9D70-FEFF819CDC90';
 const identifier = '1z1beacons';
 
 var nId = 0;
-var nearest;
+var nearest = null;
 
 angular.module('starter', ['ionic',
     'starter.controllers',
@@ -14,7 +14,6 @@ angular.module('starter', ['ionic',
     'restangular',
     'angularApiHydra',
     'ngCordova'
-
 ])
 .run(function ($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope, Restangular, $state) {
     $ionicPlatform.ready(function () {
@@ -33,6 +32,7 @@ angular.module('starter', ['ionic',
             delegate.didRangeBeaconsInRegion = function (pluginResult) {
                 if (0 === pluginResult.beacons.length) {
                     nearest = null;
+                    $rootScope.$broadcast('beacons:changed', nearest);
 
                     return;
                 }
@@ -45,30 +45,32 @@ angular.module('starter', ['ionic',
                     return beacon;
                 });
 
-                var value = {major: nearest.major, minor: nearest.minor};
+                Restangular
+                    .oneUrl('/points/major/' + nearest.major + '/minor/'+ nearest.minor).get()
+                    .then(function(point) {
+                        $rootScope.$broadcast('beacons:changed', point);
 
-                if (
-                    !window.localStorage.getItem('beacon') ||
-                    !window.localStorage.getItem('beacon').major ||
-                    window.localStorage.getItem('beacon') != value
-                ) {
-                    window.localStorage.setItem('beacon', value);
-                    cordova.plugins.notification.local.isPresent(nId, function (present) {
-                        if (present) {
-                            return;
-                        }
+                        var value = {major: nearest.major, minor: nearest.minor};
 
-                        Restangular
-                            .oneUrl('/points/major/' + nearest.major + '/minor/'+ nearest.minor).get()
-                            .then(function(point) {
+                        if (
+                            !window.localStorage.getItem('beacon') ||
+                            !window.localStorage.getItem('beacon').major ||
+                            window.localStorage.getItem('beacon') != value
+                        ) {
+                            window.localStorage.setItem('beacon', value);
+                            cordova.plugins.notification.local.isPresent(nId, function (present) {
+                                if (present) {
+                                    return;
+                                }
+
                                 cordova.plugins.notification.local.schedule({
                                     id:    ++nId,
                                     title: 'Point de curiosité',
                                     text:  point.name
                                 });
                             });
+                        }
                     });
-                }
             };
 
             cordova.plugins.notification.local.on('click', function (notification) {

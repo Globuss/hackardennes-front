@@ -14,7 +14,12 @@ angular.module('starter.controllers', [])
        });
 })
 
-.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicScrollDelegate,$stateParams) {
+.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicScrollDelegate,$stateParams, $rootScope) {
+
+    $scope.nearest = null;
+    $rootScope.$on('beacons:changed', function(event, nearest) {
+        $scope.nearest = nearest;
+    });
 
     $scope.doRefresh = function() {
 
