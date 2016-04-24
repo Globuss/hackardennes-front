@@ -1,0 +1,62 @@
+.parcours-header {
+    .parcours-header-photo {
+        background-size: cover;
+
+        &:before {
+            padding-top:     45%;
+            content: '';
+            display: block;
+        }
+    }
+
+    .parcours-header-title {
+        font-size:   2.4em;
+        font-weight: 900;
+        color:       $black;
+        font-family: $font-base;
+        margin: .5em 0;
+        line-height: 1;
+    }
+
+    .parcours-header-distance {
+        display: inline-block;
+        font-size: 3.4em;
+        font-weight: 200;
+    }
+
+    .parcours-header-city {
+        display: inline-block;
+        font-weight: bold;
+        font-size: .8em;
+    }
+
+    .margin-container {
+        padding-top: 2em;
+    }
+}
+
+.parcours-page {
+
+    .parcours-page-description {
+        font-size: 1.2em;
+        line-height: 1.5;
+        font-weight: 400;
+        padding: 1em 0;
+        color: $darkgrey;
+    }
+
+    .parcours-page-actions {
+        text-align: center;
+        padding: 2em 0;
+    }
+
+    .parcours-page-button {
+        background: $black;
+        color: $white;
+        display: inline-block;
+        padding: .8em 1.2em;
+        border: none;
+        font-size : 1em;
+    }
+}
+
