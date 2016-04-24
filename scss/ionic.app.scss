@@ -21,6 +21,7 @@ $font-base:  'Raleway', sans-serif;
 $white: #fff;
 $black: #111;
 $darkgrey: #666;
+$light-grey: #dedede;
 
 
 $layout-margin: 10vw;
@@ -34,6 +35,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "menu.app";
 @import "routeList.app";
 @import "parcours.app";
+@import "geopoint.app";
+@import "pointNotification.app";
+@import "scoring.app";
+@import "proximityOffers.app";
 
 body {
     font-family: $font-base
@@ -57,6 +62,6 @@ body {
 }
 
 .margin-container {
-    margin-left: $layout-margin;
-    margin-right: $layout-margin;
+    padding-left: $layout-margin;
+    padding-right: $layout-margin;
 }

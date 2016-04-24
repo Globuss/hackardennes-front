@@ -9792,16 +9792,21 @@ a.button {
 .main-menu {
   background: #aae6bf;
   width: 100vw !important; }
-  .main-menu .item-content {
-    background: none; }
   .main-menu .item {
     background: none;
     color: #fff;
-    font-size: 3.4em;
-    font-weight: 300;
-    border-bottom: none; }
+    border-bottom: none;
+    overflow: visible;
+    line-height: 1; }
+  .main-menu .item-content {
+    background: none;
+    font-size: 11vw;
+    display: inline-block;
+    line-height: 1;
+    padding: 0; }
   .main-menu .list {
-    height: 80vh;
+    padding-left: 2em;
+    min-height: calc(80vh - 3.5em);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -9812,6 +9817,10 @@ a.button {
   .main-menu .close-button {
     color: #111;
     display: inline-block; }
+  .main-menu .main-menu-all-route {
+    margin: 1em 0; }
+    .main-menu .main-menu-all-route .item-content {
+      font-size: 8vw; }
 
 .route-list .route-link {
   display: flex;
@@ -9840,7 +9849,7 @@ a.button {
 
 .route-list .route-link-inner {
   height: auto;
-  max-width: 75%;
+  max-width: 80%;
   position: relative;
   z-index: 1;
   padding: 1.5em 2.5em; }
@@ -9864,25 +9873,37 @@ a.button {
   font-weight: bold;
   font-size: .8em; }
 
+.route-list .route-link-theme {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: .9em; }
+
 .parcours-header .parcours-header-photo {
-  background-size: cover; }
+  background-size: cover;
+  background-color: #dedede; }
   .parcours-header .parcours-header-photo:before {
     padding-top: 45%;
     content: '';
     display: block; }
+
+.parcours-header .parcours-header-theme {
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 200; }
 
 .parcours-header .parcours-header-title {
   font-size: 2.4em;
   font-weight: 900;
   color: #111;
   font-family: "Raleway", sans-serif;
-  margin: .5em 0;
+  margin: 0;
   line-height: 1; }
 
 .parcours-header .parcours-header-distance {
   display: inline-block;
   font-size: 3.4em;
-  font-weight: 200; }
+  font-weight: 200;
+  position: relative; }
 
 .parcours-header .parcours-header-city {
   display: inline-block;
@@ -9891,6 +9912,36 @@ a.button {
 
 .parcours-header .margin-container {
   padding-top: 2em; }
+
+.parcours-header .legend {
+  font-size: .25em;
+  display: block;
+  background: #111;
+  color: #fff;
+  padding: 0 .5em;
+  line-height: 1.25;
+  font-weight: 400;
+  position: absolute;
+  margin-bottom: .4em;
+  left: 50%;
+  top: -100%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap; }
+  .parcours-header .legend:after {
+    display: block;
+    width: .5em;
+    height: .5em;
+    content: '';
+    background: #111;
+    transform: translate(-50%, 50%) rotate(45deg);
+    z-index: -1;
+    position: absolute;
+    left: 50%;
+    bottom: 0; }
+
+.parcours-header .on-position {
+  font-size: 3.4em;
+  margin-top: .5em; }
 
 .parcours-page .parcours-page-description {
   font-size: 1.2em;
@@ -9911,6 +9962,125 @@ a.button {
   border: none;
   font-size: 1em; }
 
+.point-content {
+  padding-bottom: 5em;
+  padding-top: 2em; }
+  .point-content .point-content-title {
+    font-weight: 200;
+    font-size: 2.3em;
+    font-family: inherit;
+    padding-left: 30%;
+    position: relative; }
+    .point-content .point-content-title:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 75%;
+      content: '';
+      background: url("../img/point_ico_blck.svg") no-repeat center center;
+      background-size: contain; }
+  .point-content .point-content-head {
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 1em 0;
+    color: #666; }
+
+.point-notification {
+  background: #111;
+  color: #666;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  border: none; }
+  .point-notification div {
+    white-space: normal; }
+  .point-notification .point-notification-informations {
+    width: 67%; }
+  .point-notification .point-notification-bicon {
+    width: 33%;
+    opacity: .18;
+    padding-bottom: 3em; }
+    .point-notification .point-notification-bicon:before {
+      padding-top: 100%;
+      content: '';
+      display: block;
+      background-size: cover;
+      background: url("../img/point_ico_white.svg") no-repeat center center; }
+  .point-notification .point-notification-actions {
+    padding: 1em 0; }
+  .point-notification .point-notification-button {
+    border: none;
+    background: #fff;
+    color: #111;
+    padding: .7em 1.8em;
+    display: inline-block;
+    font-weight: bold;
+    font-size: .8em; }
+  .point-notification .point-notification-label {
+    font-weight: 200;
+    color: #fff; }
+  .point-notification .point-notification-name {
+    font-size: 1.8em;
+    font-weight: 300;
+    line-height: 1; }
+  .point-notification .point-notification-description {
+    font-size: .8em;
+    line-height: 1.5;
+    margin-top: .5em;
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
+.menu-scoring {
+  text-align: center;
+  color: #111; }
+  .menu-scoring .menu-scoring-score {
+    font-size: 2em;
+    font-weight: 200;
+    margin: .2em 0; }
+  .menu-scoring .menu-scoring-legend:after {
+    width: 1.7em;
+    height: 1.7em;
+    background: url("../img/point_ico_blck.svg") no-repeat center center;
+    background-size: contain;
+    content: '';
+    display: block;
+    margin: 0 auto; }
+
+.proximity-offers {
+  background: #dedede;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 2em; }
+  .proximity-offers .proximity-title {
+    font-size: 1.4em;
+    font-weight: 800;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    padding: .5em 0;
+    color: #fff;
+    margin: 0;
+    line-height: 1; }
+  .proximity-offers .proximity-offer {
+    width: 50%;
+    color: #fff;
+    padding: 1em; }
+  .proximity-offers .proximity-legend {
+    text-transform: uppercase;
+    display: block; }
+  .proximity-offers .proximity-offer-distance {
+    font-size: 1.8em;
+    font-weight: 200;
+    margin: .1em 0; }
+  .proximity-offers .proximity-name {
+    font-weight: 800;
+    font-size: 1.2em; }
+
 body {
   font-family: "Raleway", sans-serif; }
 
@@ -9926,5 +10096,5 @@ body {
     color: #111; }
 
 .margin-container {
-  margin-left: 10vw;
-  margin-right: 10vw; }
+  padding-left: 10vw;
+  padding-right: 10vw; }

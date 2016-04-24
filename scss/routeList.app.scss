@@ -33,7 +33,7 @@
 
     .route-link-inner {
         height: auto;
-        max-width: 75%;
+        max-width: 80%;
         position: relative;
         z-index: 1;
         padding: 1.5em 2.5em;
@@ -60,6 +60,12 @@
         display: inline-block;
         font-weight: bold;
         font-size: .8em;
+    }
+
+    .route-link-theme {
+        text-transform:  uppercase;
+        font-weight: 500;
+        font-size: .9em;
     }
 
 }

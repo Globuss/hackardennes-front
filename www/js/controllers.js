@@ -14,71 +14,73 @@ angular.module('starter.controllers', [])
        });
 })
 
-.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicScrollDelegate,$stateParams) {
+.controller('RouteCtrl', function($scope,Path, geoLocation, leafletData, loadMoreServiceRoute,$ionicScrollDelegate,$stateParams, $rootScope) {
+
+    $scope.nearest = null;
+    $rootScope.$on('beacons:changed', function(event, nearest) {
+        $scope.nearest = nearest;
+    });
 
     $scope.doRefresh = function() {
+        $scope.loadMore(true);
 
-        $scope.paths = [];
-        console.log(geoLocation.getGeolocation().lat);
+    };
+        Path.getList({lat:geoLocation.getGeolocation().lat, long:geoLocation.getGeolocation().lng}).then(function (paths) {
 
-        $scope.noMoreItemsAvailable = false;
+            var redMarker = L.AwesomeMarkers.icon({
+                icon: 'coffee',
+                prefix: 'fa',
+                markerColor: 'red'
+            });
 
-        var mainMarker = {
-            lat: geoLocation.getGeolocation().lat,
-            lng: geoLocation.getGeolocation().lng
-        };
+            var positionMarker = L.AwesomeMarkers.icon({
+                icon: 'user',
+                prefix: 'fa',
+                markerColor: 'blue'
+            });
 
-        var redMarker = L.AwesomeMarkers.icon({
-            icon: 'coffee',
-            prefix: 'fa',
-            markerColor: 'red'
-        });
+            var markers = [];
+            var markersBounds = [];
+             var i = 0;
+            angular.forEach(paths, function(value, key) {
+                if (i < 5) {
+                markersBounds.push([value[0].points[0].latitude,value[0].points[0].longitude]);
+                }
+                markers.push(["23",value[0].points[0].latitude,value[0].points[0].longitude]);
+                i += 1;
+            });
+            markersBounds.push([geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng]);
 
-        var positionMarker = L.AwesomeMarkers.icon({
-            icon: 'user',
-            prefix: 'fa',
-            markerColor: 'blue'
-        });
+            var position =
+                ["", geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng];
 
-        var position =
-            ["", geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng];
+            angular.extend($scope, {
+                maxbounds: {}
+            });
 
-        var markers = [
-            ["", 49.761689, 4.717770],
-            ["", 49.752374, 4.720516],
-            ["", 49.703549, 4.938526]
-        ];
+            leafletData.getMap().then(function (map) {
 
-        angular.extend($scope, {
-            maxbounds: {}
-        });
-
-        var markerArray = [];
-        markerArray.push([49.761689, 4.717770]);
-        markerArray.push([49.752374, 4.720516]);
-        markerArray.push([49.703549, 4.938526]);
-        markerArray.push([geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng]);
-
-        leafletData.getMap().then(function (map) {
-
-            position = new L.marker([position[1], position[2]], {icon: positionMarker})
-            .bindPopup(position[0])
-            .addTo(map);
-
-            for (var i = 0; i < markers.length; i++) {
-                marker = new L.marker([markers[i][1], markers[i][2]], {icon: redMarker})
-                .bindPopup(markers[i][0])
+                position = new L.marker([position[1], position[2]], {icon: positionMarker})
+                .bindPopup(position[0])
                 .addTo(map);
 
-            }
-            var bbox = L.latLngBounds(markerArray);
-            //$scope.maxbounds.southWest = bbox.getSouthWest();
-            //$scope.maxbounds.northEast = bbox.getNorthEast();
-            map.fitBounds(bbox);
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '',
-            }).addTo(map);
+                for (var i = 0; i < markers.length; i++) {
+                    marker = new L.marker([markers[i][1], markers[i][2]], {icon: redMarker})
+                    .bindPopup(markers[i][0])
+                    .addTo(map);
 
+                }
+                var bbox = L.latLngBounds(markersBounds);
+                //$scope.maxbounds.southWest = bbox.getSouthWest();
+                //$scope.maxbounds.northEast = bbox.getNorthEast();
+                map.fitBounds(bbox);
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '',
+                }).addTo(map);
+        });
+
+        $scope.paths = [];
+        $scope.noMoreItemsAvailable = false;
 
             /*L.Routing.control({
              waypoints: [
@@ -88,12 +90,14 @@ angular.module('starter.controllers', [])
              }).addTo(map);*/
 
         });
-        $ionicScrollDelegate.resize();
-        $scope.$broadcast('scroll.refreshComplete');
-    };
 
-    $scope.loadMore = function () {
 
+    $scope.loadMore = function (refresh) {
+
+        if (refresh){
+            $scope.nextPage = null;
+            $scope.paths =[];
+        }
             var theme = '';
               if($stateParams.theme != null){
                   theme = '&theme='+$stateParams.theme;
@@ -108,17 +112,19 @@ angular.module('starter.controllers', [])
 
         );
             $scope.nextPage = paths.metadata.nextPage;
-            console.log($scope.nextPage);
+
             if (!paths.metadata.nextPage) {
                 $scope.noMoreItemsAvailable = true;
             }
 
             $scope.$broadcast('scroll.infiniteScrollComplete');
+            $ionicScrollDelegate.resize();
+            $scope.$broadcast('scroll.refreshComplete');
 
         });
 
     };
-    $scope.doRefresh();
+    $scope.doRefresh(false);
 
 })
 
@@ -131,6 +137,9 @@ angular.module('starter.controllers', [])
 .controller('PointCtrl', function($scope, Restangular, $stateParams) {
     Restangular.oneUrl('/points/' + $stateParams.id).get().then(function(point) {
         $scope.point = point;
+        Restangular.oneUrl(point.path).get().then(function(path) {
+            $scope.path = path;
+        });
     });
 })
 

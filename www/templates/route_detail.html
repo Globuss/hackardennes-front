@@ -1,7 +1,10 @@
 <ion-view class="path-list" view-title="">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-android-compass">
+        </button>
+    </ion-nav-buttons>
   <ion-content scroll="false">
     <ion-scroll class="parcours-page" style="height: 100%; overflow-y:hidden ">
-
         <div class="parcours-header">
             <div class="parcours-header-photo"
                  style="background-image:url({{path.points[0].image}})">
@@ -25,11 +28,6 @@
                         Aller sur le parcours
                     </button>
                 </a>
-            </div>
-        </div>
-        <div>
-            <div ng-repeat="point in path.points">
-                <a href="#/app{{point['@id']}}">{{point.name}}</a>
             </div>
         </div>
     </ion-scroll>

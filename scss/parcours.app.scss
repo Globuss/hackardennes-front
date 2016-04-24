@@ -1,6 +1,7 @@
 .parcours-header {
     .parcours-header-photo {
         background-size: cover;
+        background-color: $light-grey;
 
         &:before {
             padding-top:     45%;
@@ -9,12 +10,18 @@
         }
     }
 
+    .parcours-header-theme {
+        text-transform: uppercase;
+        font-size: .9em;
+        font-weight: 200;
+    }
+
     .parcours-header-title {
         font-size:   2.4em;
         font-weight: 900;
         color:       $black;
         font-family: $font-base;
-        margin: .5em 0;
+        margin: 0;
         line-height: 1;
     }
 
@@ -22,6 +29,7 @@
         display: inline-block;
         font-size: 3.4em;
         font-weight: 200;
+        position: relative;
     }
 
     .parcours-header-city {
@@ -33,10 +41,42 @@
     .margin-container {
         padding-top: 2em;
     }
+    .legend {
+        font-size: .25em;
+        display: block;
+        background: $black;
+        color: $white;
+        padding: 0 .5em;
+        line-height: 1.25;
+        font-weight: 400;
+        position: absolute;
+        margin-bottom: .4em;
+        left:           50%;
+        top: -100%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+
+        &:after {
+            display: block;
+            width: .5em;
+            height: .5em;
+            content :'';
+            background: $black;
+            transform: translate(-50%, 50%) rotate(45deg);
+            z-index: -1;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+        }
+    }
+
+    .on-position {
+        font-size: 3.4em;
+        margin-top: .5em;
+    }
 }
 
 .parcours-page {
-
     .parcours-page-description {
         font-size: 1.2em;
         line-height: 1.5;

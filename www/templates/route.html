@@ -1,27 +1,50 @@
 <ion-view class="path-list" view-title="">
   <ion-content scroll="false">
     <ion-scroll style="height: 100%; overflow-y:hidden ">
-      <ion-refresher refreshing-icon=""
+      <ion-refresher
                      pulling-text="Tirer pour rafraîchir"
                      refreshing-text="Chargement..."
                      on-refresh="doRefresh()">
       </ion-refresher>
       <ion-list class="route-list">
+
+      <ion-item class="point-notification" ng-if="nearest != null">
+          <div class="point-notification-bicon">
+
+          </div>
+          <div class="point-notification-informations">
+              <div class="point-notification-label">
+                  Vous êtes ici
+              </div>
+              <div class="point-notification-name">
+                  {{nearest.name}}
+              </div>
+              <div class="point-notification-description">
+                  {{nearest.description}}
+              </div>
+              <div class="point-notification-actions">
+                  <a class="point-notification-button" href="#/app{{nearest['@id']}}">
+                      Lire la suite
+                  </a>
+            </div>
+          </div>
+      </ion-item>
+
        <ion-item class="route-item" ng-repeat="path in paths track by $index">
            <a class="route-link" href="#/app/route{{path[0]['@id']}}"
               ng-style="{'background-image':'url({{path[0].points[0].image}})'}">
                <div class="route-link-inner">
-                   <div class="route-link-theme">{{path[0].theme}}</div>
                    <div class="route-link-positions">
                        <div class="route-link-distance">{{path.distance | distance}}</div>
                        <div class="route-link-city">{{path[0].city}}</div>
                    </div>
                    <div class="route-link-title">{{path[0].name}}</div>
+                   <div class="route-link-theme">{{path[0].theme}}</div>
                </div>
            </a>
        </ion-item>
       </ion-list>
-      <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>
+      <ion-infinite-scroll on-infinite="loadMore(false)" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>
     </ion-scroll>
   </ion-content>
 </ion-view>
