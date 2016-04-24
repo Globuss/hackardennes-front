@@ -9934,6 +9934,45 @@ a.button {
     padding: 1em 0;
     color: #666; }
 
+.point-notification {
+  background: #111;
+  color: #666;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  border: none; }
+  .point-notification div {
+    white-space: normal; }
+  .point-notification .point-notification-informations {
+    width: 70%; }
+  .point-notification .point-notification-bicon {
+    width: 30%; }
+  .point-notification .point-notification-actions {
+    padding: 1em 0; }
+  .point-notification .point-notification-button {
+    border: none;
+    background: #fff;
+    color: #111;
+    padding: .7em 1.8em;
+    display: inline-block;
+    font-weight: bold;
+    font-size: .8em; }
+  .point-notification .point-notification-label {
+    font-weight: 200;
+    color: #fff; }
+  .point-notification .point-notification-name {
+    font-size: 1.8em;
+    font-weight: 300;
+    line-height: 1; }
+  .point-notification .point-notification-description {
+    font-size: .8em;
+    line-height: 1.5;
+    margin-top: .5em;
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
 body {
   font-family: "Raleway", sans-serif; }
 

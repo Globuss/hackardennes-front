@@ -7,6 +7,29 @@
                      on-refresh="doRefresh()">
       </ion-refresher>
       <ion-list class="route-list">
+
+      <ion-item class="point-notification">
+          <div class="point-notification-bicon">
+              O
+          </div>
+          <div class="point-notification-informations">
+              <div class="point-notification-label">
+                  Vous êtes ici
+              </div>
+              <div class="point-notification-name">
+                  Maison des ailleurs
+              </div>
+              <div class="point-notification-description">
+                  Au début du Moyen Âge, la forêt d'Ardenne est inhospitalière, d'une sauvage beauté. Elle offre aux ermites puis aux moines une terre promise à leur solitude et leur recueillement. Des abbayes naissent dans les vallées les plus secrètes comme Saint-Hubert,
+              </div>
+              <div class="point-notification-actions">
+                  <button class="point-notification-button">
+                      Lire la suite
+                  </button>
+            </div>
+          </div>
+      </ion-item>
+
        <ion-item class="route-item" ng-repeat="path in paths track by $index">
            <a class="route-link" href="#/app/route{{path[0]['@id']}}"
               ng-style="{'background-image':'url({{path[0].points[0].image}})'}">

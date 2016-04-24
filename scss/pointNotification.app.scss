@@ -1,0 +1,55 @@
+.point-notification {
+    background: $black;
+    color: $darkgrey;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    border: none;
+
+    div {
+        white-space: normal;
+    }
+
+    .point-notification-informations {
+        width: 70%;
+    }
+
+    .point-notification-bicon {
+        width: 30%;
+    }
+
+    .point-notification-actions {
+        padding: 1em 0;
+    }
+
+    .point-notification-button {
+        border :none;
+        background: $white;
+        color: $black;
+        padding: .7em 1.8em;
+        display: inline-block;
+        font-weight: bold;
+        font-size: .8em;
+    }
+    .point-notification-label {
+        font-weight: 200;
+        color: $white;
+    }
+
+    .point-notification-name {
+        font-size: 1.8em;
+        font-weight: 300;
+        line-height: 1;
+    }
+
+    .point-notification-description  {
+        font-size: .8em;
+        line-height: 1.5;
+        margin-top: .5em;
+        max-height: 3em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
