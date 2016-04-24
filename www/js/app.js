@@ -210,7 +210,18 @@ angular.module('starter', ['ionic',
                     controller: 'MapCtrl'
                 }
             }
+        })
+
+        .state('route_map', {
+            url: '/routeMap/paths/:id',
+            templateUrl: 'templates/map/index.html',
+            controller: 'RouteMapCtrl',
+            params : {
+                id:null
+            }
         });
+
+
 
         $urlRouterProvider.otherwise('/app/route');
 });

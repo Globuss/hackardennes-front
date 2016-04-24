@@ -20,9 +20,11 @@
         <div class="parcours-page-description margin-container">
             {{path.points[0].description}}
             <div class="parcours-page-actions">
-                <button class="parcours-page-button">
-                    Aller sur le parcours
-                </button>
+                <a href="#/routeMap{{path['@id']}}">
+                    <button class="parcours-page-button">
+                        Aller sur le parcours
+                    </button>
+                </a>
             </div>
         </div>
         <div>

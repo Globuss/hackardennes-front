@@ -203,10 +203,40 @@ angular.module('starter.controllers', [])
 
     $scope.minor = $stateParams.minor;
     $scope.major = $stateParams.major;
+})
 
 
+.controller('RouteMapCtrl', function (geoLocation, leafletData, $stateParams, Restangular){
+
+    var pathUrl = '/paths/' + $stateParams.id;
+    var markersArray = [];
+    //  les coord des points + champ popup
+    Restangular.oneUrl(pathUrl).get().then(function(path) {
+        angular.forEach(path.points, function(point, key) {
+            markersArray.push(["",point.latitude,point.longitude])
+            console.log(markersArray);
+
+        });
+        
+        //Creation d un marqueur
+        var redMarker = L.AwesomeMarkers.icon({
+            icon: 'coffee',
+            prefix: 'fa',
+            markerColor: 'red'
+        });
+
+        //Affiche marqueurs
+        leafletData.getMap().then(function (map) {
+            for (var i = 0; i < markersArray.length; i++) {
+                marker = new L.marker([markersArray[i][1],markersArray[i][2]], {icon: redMarker})
+                    .bindPopup(markersArray[i][0])
+                    .addTo(map);
+            }
 
 
+        });
+
+    });
 })
 ;
 
