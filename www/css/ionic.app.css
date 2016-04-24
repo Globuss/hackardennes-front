@@ -10098,3 +10098,24 @@ body {
 .margin-container {
   padding-left: 10vw;
   padding-right: 10vw; }
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: #111;
+  color: #fff;
+  border-radius: 0; }
+
+.marker-name {
+  font-weight: 800; }
+
+.marker-category {
+  font-weight: 200;
+  font-size: 0.8em;
+  text-transform: uppercase; }
+
+.marker-button {
+  display: inline-block;
+  padding: .3em .7em;
+  background: #fff;
+  color: #111 !important;
+  margin: .5em 0;
+  text-decoration: none; }

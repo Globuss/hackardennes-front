@@ -25,12 +25,14 @@ angular.module('starter.controllers', [])
         $scope.loadMore(true);
 
     };
+        var theme = '';
+        if($stateParams.theme != null){
+            theme = '&theme='+$stateParams.theme;
+        }
         Path.getList({lat:geoLocation.getGeolocation().lat, long:geoLocation.getGeolocation().lng}).then(function (paths) {
 
             var redMarker = L.AwesomeMarkers.icon({
-                icon: 'coffee',
-                prefix: 'fa',
-                markerColor: 'red'
+                markerColor: 'black'
             });
 
             var positionMarker = L.AwesomeMarkers.icon({
@@ -41,14 +43,24 @@ angular.module('starter.controllers', [])
 
             var markers = [];
             var markersBounds = [];
-             var i = 0;
+            var i = 0;
             angular.forEach(paths, function(value, key) {
                 if (i < 5) {
                 markersBounds.push([value[0].points[0].latitude,value[0].points[0].longitude]);
                 }
-                markers.push(["23",value[0].points[0].latitude,value[0].points[0].longitude]);
+                var pathUrl = value[0]['@id'];
+                markers.push([
+                    '<div class="marker-name">'+value[0].points[0].name+
+                    '<br/>'+
+                    '<div class="marker-category"> '+ value[0].theme + '</div>'+
+                    '<a class="marker-button" href="# " menu-close="right" >Voir plus</a>'
+
+                    ,
+                    value[0].points[0].latitude,
+                    value[0].points[0].longitude]);
                 i += 1;
             });
+
             markersBounds.push([geoLocation.getGeolocation().lat, geoLocation.getGeolocation().lng]);
 
             var position =
@@ -58,25 +70,25 @@ angular.module('starter.controllers', [])
                 maxbounds: {}
             });
 
-            leafletData.getMap().then(function (map) {
+            leafletData.getMap().then(function (mapRoute) {
 
                 position = new L.marker([position[1], position[2]], {icon: positionMarker})
                 .bindPopup(position[0])
-                .addTo(map);
+                .addTo(mapRoute);
 
                 for (var i = 0; i < markers.length; i++) {
                     marker = new L.marker([markers[i][1], markers[i][2]], {icon: redMarker})
                     .bindPopup(markers[i][0])
-                    .addTo(map);
+                    .addTo(mapRoute);
 
                 }
                 var bbox = L.latLngBounds(markersBounds);
                 //$scope.maxbounds.southWest = bbox.getSouthWest();
                 //$scope.maxbounds.northEast = bbox.getNorthEast();
-                map.fitBounds(bbox);
+                mapRoute.fitBounds(bbox);
                 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                    attribution: '',
-                }).addTo(map);
+                    attribution: ''
+                }).addTo(mapRoute);
         });
 
         $scope.paths = [];
