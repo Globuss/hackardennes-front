@@ -12,12 +12,24 @@
     }
 
     .point-notification-informations {
-        width: 70%;
+        width: 67%;
     }
 
     .point-notification-bicon {
-        width: 30%;
+        width: 33%;
+        opacity: .18;
+        padding-bottom: 3em;
+
+
+        &:before {
+            padding-top: 100%;
+            content: '';
+            display: block;
+            background-size: cover;
+            background: url('../img/point_ico_white.svg') no-repeat center center;
+        }
     }
+
 
     .point-notification-actions {
         padding: 1em 0;
