@@ -226,8 +226,9 @@ angular.module('starter.controllers', [])
         });
 
 
-        //Affiche marqueurs
+        //Affiche marqueurs avec itineraire
         leafletData.getMap().then(function (map) {
+
           L.Routing.control({
                 waypoints : markersArray
             }).addTo(map);
