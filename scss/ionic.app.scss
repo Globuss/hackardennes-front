@@ -38,6 +38,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "geopoint.app";
 @import "pointNotification.app";
 @import "scoring.app";
+@import "proximityOffers.app";
 
 body {
     font-family: $font-base
@@ -61,6 +62,6 @@ body {
 }
 
 .margin-container {
-    margin-left: $layout-margin;
-    margin-right: $layout-margin;
+    padding-left: $layout-margin;
+    padding-right: $layout-margin;
 }

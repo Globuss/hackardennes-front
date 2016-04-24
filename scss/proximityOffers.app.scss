@@ -1,0 +1,41 @@
+.proximity-offers {
+    background: $light-grey;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 2em;
+
+    .proximity-title {
+        font-size: 1.4em;
+        font-weight: 800;
+        text-align: center;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        padding: .5em 0;
+        color: $white;
+        margin:0;
+        line-height: 1;
+    }
+
+    .proximity-offer {
+        width: 50%;
+        color: $white;
+        padding: 1em;
+    }
+
+    .proximity-legend {
+        text-transform: uppercase;
+        display: block;
+    }
+
+    .proximity-offer-distance {
+        font-size :1.8em;
+        font-weight: 200;
+        margin: .1em 0;
+    }
+
+    .proximity-name {
+        font-weight: 800;
+        font-size: 1.2em;
+    }
+}

@@ -9941,7 +9941,7 @@ a.button {
 
 .parcours-header .on-position {
   font-size: 3.4em;
-  margin-top: .1em; }
+  margin-top: .5em; }
 
 .parcours-page .parcours-page-description {
   font-size: 1.2em;
@@ -10050,6 +10050,37 @@ a.button {
     display: block;
     margin: 0 auto; }
 
+.proximity-offers {
+  background: #dedede;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 2em; }
+  .proximity-offers .proximity-title {
+    font-size: 1.4em;
+    font-weight: 800;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    padding: .5em 0;
+    color: #fff;
+    margin: 0;
+    line-height: 1; }
+  .proximity-offers .proximity-offer {
+    width: 50%;
+    color: #fff;
+    padding: 1em; }
+  .proximity-offers .proximity-legend {
+    text-transform: uppercase;
+    display: block; }
+  .proximity-offers .proximity-offer-distance {
+    font-size: 1.8em;
+    font-weight: 200;
+    margin: .1em 0; }
+  .proximity-offers .proximity-name {
+    font-weight: 800;
+    font-size: 1.2em; }
+
 body {
   font-family: "Raleway", sans-serif; }
 
@@ -10065,5 +10096,5 @@ body {
     color: #111; }
 
 .margin-container {
-  margin-left: 10vw;
-  margin-right: 10vw; }
+  padding-left: 10vw;
+  padding-right: 10vw; }
