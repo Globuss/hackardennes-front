@@ -1,9 +1,9 @@
-// Ionic Starter App
+const uuid       = '7473CEE4-6202-11E5-9D70-FEFF819CDC90';
+const identifier = '1z1beacons';
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
+var nId = 0;
+var nearest;
+
 angular.module('starter', ['ionic',
     'starter.controllers',
     'leaflet-directive',
@@ -16,94 +16,79 @@ angular.module('starter', ['ionic',
     'ngCordova'
 
 ])
-.run(function ($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope, $http) {
+.run(function ($ionicPlatform, $cordovaGeolocation, geoLocation, $ionicPopup, $rootScope, Restangular, $state) {
     $ionicPlatform.ready(function () {
         if (window.cordova) {
-
+            const beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);
             var delegate = new cordova.plugins.locationManager.Delegate();
 
             delegate.didDetermineStateForRegion = function (pluginResult) {
-                console.log("a");
+                console.log('a');
             };
 
             delegate.didStartMonitoringForRegion = function (pluginResult) {
-                console.log("b");
+                console.log('b');
             };
 
             delegate.didRangeBeaconsInRegion = function (pluginResult) {
-                if (pluginResult.beacons.length > 0) {
-                    index = 0;
-                    proxMax = pluginResult.beacons[index].proximity;
-                    if (pluginResult.beacons.length > 1) {
-                        for (i = 1; i < pluginResult.beacons.length; i++) {
-                            if (pluginResult.beacons[i].proximity > pluginResult.beacons[index].proximity) {
-                                index = i;
-                                proxMax = pluginResult.beacons[i].proximity;
-                            }
+                if (0 === pluginResult.beacons.length) {
+                    return;
+                }
+
+                nearest = pluginResult.beacons.reduce(function (memo, beacon) {
+                    if (memo && memo.accuracy < beacon.accuracy) {
+                        return memo;
+                    }
+
+                    return beacon;
+                });
+                var value = {major: nearest.major, minor: nearest.minor};
+
+                if (
+                    !window.localStorage.getItem('beacon') ||
+                    !window.localStorage.getItem('beacon').major ||
+                    window.localStorage.getItem('beacon') != value
+                ) {
+                    cordova.plugins.notification.local.isPresent(nId, function (present) {
+                        if (present) {
+                            return;
                         }
-                    }
 
-                    var minor = pluginResult.beacons[index].minor;
-                    var major = pluginResult.beacons[index].major;
-                    console.log("Minor : " + minor);
-                    console.log("Major : " + major);
-                    console.log("Proximity : " + pluginResult.beacons[index].proximity);
-                    var value = '{"major":' + major + ',"minor":' + minor + '}';
-                    //if(pluginResult.beacons[index].minor == "3" && pluginResult.beacons[index].major == "1"){
-
-                    console.log(window.localStorage.getItem("beacon"));
-                    console.log(window.localStorage.getItem("beacon") == 'undefined');
-                    console.log(window.localStorage.getItem("beacon") != value);
-
-                    if (window.localStorage.getItem("beacon") != value || window.localStorage.getItem("beacon") == 'undefined') {
-                    var req = $http.get('http://un-zero-un-api.herokuapp.com/points/major/'+major+'/minor/'+minor);
-                           req.success(function(data,status,headers,config){
-                              cordova.plugins.notification.local.schedule({
-                                                          id: 10,
-                                                          title: "Tourisme Ardennes",
-                                                          text: data.name
-                                                      });
-                                                      value = '{"major":' + major + ',"minor":' + minor + '}';
-                                                      window.localStorage.setItem("beacon", value);
-                           });
-                           req.error(function(data,status,headers,config){
-
-                           });
-
-                    }
-
-
-                    //}
-
-
+                        Restangular
+                            .oneUrl('/points/major/' + nearest.major + '/minor/'+ nearest.minor).get()
+                            .then(function(point) {
+                                cordova.plugins.notification.local.schedule({
+                                    id:    ++nId,
+                                    title: 'Point de curiosité',
+                                    text:  point.name
+                                });
+                            });
+                    });
                 }
             };
 
-            cordova.plugins.notification.local.on("click", function (notification) {
-                alert("clicked: " + notification.id);
+            cordova.plugins.notification.local.on('click', function (notification) {
+                Restangular
+                    .oneUrl('/points/major/' + nearest.major + '/minor/'+ nearest.minor).get()
+                    .then(function(point) {
+                        $state.go('app.route');
+                        $state.go('app.point', {id: point['@id'].substr(point['@id'].indexOf('/'))});
+                    });
+
             });
 
-            var uuid = '7473CEE4-6202-11E5-9D70-FEFF819CDC90';
-            var identifier = 'Bonjour';
-            var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);
-
             cordova.plugins.locationManager.setDelegate(delegate);
-
-            // required in iOS 8+
-            cordova.plugins.locationManager.requestWhenInUseAuthorization();
-            // or cordova.plugins.locationManager.requestAlwaysAuthorization()
-
+            cordova.plugins.locationManager.requestAlwaysAuthorization();
             cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
                 .fail(console.error)
-                .done(); // Create a region object.
-
+                .done();
         }
+
         $cordovaGeolocation
             .getCurrentPosition()
             .then(function (position) {
                 geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
             }, function (err) {
-                // you need to enhance that point
                 $ionicPopup.alert({
                     title: 'Ooops...',
                     template: err.message
@@ -115,26 +100,21 @@ angular.module('starter', ['ionic',
             frequency: 1000,
             timeout: 3000,
             enableHighAccuracy: false
-        }).then(function () {
-            }, function (err) {
-                // you need to enhance that point
-
-            }, function (position) {
+        }).then(
+            function () { },
+            function (err) { },
+            function (position) {
                 geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
-                // broadcast this event on the rootScope
                 $rootScope.$broadcast('location:change', geoLocation.getGeolocation());
             }
         );
 
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             cordova.plugins.Keyboard.disableScroll(true);
         }
 
         if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
     })
@@ -195,7 +175,7 @@ angular.module('starter', ['ionic',
         .state('startRoute', {
             cache: false,
             url: '/startroute/:point',
-            templateUrl: "templates/startRoute/index.html",
+            templateUrl: 'templates/startRoute/index.html',
             controller: 'StartRouteCtrl',
             params: {
                 point: null
