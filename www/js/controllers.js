@@ -83,8 +83,7 @@ angular.module('starter.controllers', [])
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '',
             }).addTo(map);
-
-
+            
             /*L.Routing.control({
              waypoints: [
              L.latLng(57.74, 11.94),
