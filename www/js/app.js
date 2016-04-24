@@ -39,14 +39,15 @@ angular.module('starter', ['ionic',
                     count += 1;
 
                     return;
+                }else{
+                    count = 0;
                 }
 
                 nearest = pluginResult.beacons.reduce(function (memo, beacon) {
                     if (memo && memo.accuracy < beacon.accuracy) {
                         return memo;
                     }
-
-                    count = 0;
+                    
                     return beacon;
                 });
 
