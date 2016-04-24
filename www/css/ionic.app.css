@@ -9925,8 +9925,19 @@ a.button {
   padding-bottom: 5em; }
   .point-content .point-content-title {
     font-weight: 200;
-    font-size: 2.2em;
-    font-family: inherit; }
+    font-size: 2.1em;
+    font-family: inherit;
+    padding-left: 30%;
+    position: relative; }
+    .point-content .point-content-title:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 75%;
+      content: '';
+      background: url("../img/point_ico_blck.svg") no-repeat center center;
+      background-size: contain; }
   .point-content .point-content-head {
     font-size: 1.2em;
     line-height: 1.5;
