@@ -42,6 +42,7 @@ angular.module('starter', ['ionic',
 
                     return beacon;
                 });
+
                 var value = {major: nearest.major, minor: nearest.minor};
 
                 if (
@@ -49,6 +50,7 @@ angular.module('starter', ['ionic',
                     !window.localStorage.getItem('beacon').major ||
                     window.localStorage.getItem('beacon') != value
                 ) {
+                    window.localStorage.setItem('beacon', value);
                     cordova.plugins.notification.local.isPresent(nId, function (present) {
                         if (present) {
                             return;
