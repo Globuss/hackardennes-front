@@ -1,7 +1,7 @@
 <ion-view class="path-list" view-title="">
   <ion-content scroll="false">
     <ion-scroll style="height: 100%; overflow-y:hidden ">
-      <ion-refresher refreshing-icon=""
+      <ion-refresher
                      pulling-text="Tirer pour rafraîchir"
                      refreshing-text="Chargement..."
                      on-refresh="doRefresh()">
@@ -44,7 +44,7 @@
            </a>
        </ion-item>
       </ion-list>
-      <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>
+      <ion-infinite-scroll on-infinite="loadMore(false)" ng-if="!noMoreItemsAvailable" distance="1%"></ion-infinite-scroll>
     </ion-scroll>
   </ion-content>
 </ion-view>

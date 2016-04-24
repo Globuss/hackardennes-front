@@ -21,9 +21,10 @@ angular.module('starter.controllers', [])
         $scope.nearest = nearest;
     });
 
-
     $scope.doRefresh = function() {
+        $scope.loadMore(true);
 
+    };
         Path.getList({lat:geoLocation.getGeolocation().lat, long:geoLocation.getGeolocation().lng}).then(function (paths) {
 
             var redMarker = L.AwesomeMarkers.icon({
@@ -89,12 +90,14 @@ angular.module('starter.controllers', [])
              }).addTo(map);*/
 
         });
-        $ionicScrollDelegate.resize();
-        $scope.$broadcast('scroll.refreshComplete');
-    };
 
-    $scope.loadMore = function () {
 
+    $scope.loadMore = function (refresh) {
+
+        if (refresh){
+            $scope.nextPage = null;
+            $scope.paths =[];
+        }
             var theme = '';
               if($stateParams.theme != null){
                   theme = '&theme='+$stateParams.theme;
@@ -115,11 +118,13 @@ angular.module('starter.controllers', [])
             }
 
             $scope.$broadcast('scroll.infiniteScrollComplete');
+            $ionicScrollDelegate.resize();
+            $scope.$broadcast('scroll.refreshComplete');
 
         });
 
     };
-    $scope.doRefresh();
+    $scope.doRefresh(false);
 
 })
 
