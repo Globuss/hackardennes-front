@@ -9806,7 +9806,7 @@ a.button {
     padding: 0; }
   .main-menu .list {
     padding-left: 2em;
-    min-height: 80vh;
+    min-height: calc(80vh - 3.5em);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -9980,6 +9980,22 @@ a.button {
     max-height: 3em;
     overflow: hidden;
     text-overflow: ellipsis; }
+
+.menu-scoring {
+  text-align: center;
+  color: #111; }
+  .menu-scoring .menu-scoring-score {
+    font-size: 2em;
+    font-weight: 200;
+    margin: .2em 0; }
+  .menu-scoring .menu-scoring-legend:after {
+    width: 1.7em;
+    height: 1.7em;
+    background: url("../img/point_ico_blck.svg") no-repeat center center;
+    background-size: contain;
+    content: '';
+    display: block;
+    margin: 0 auto; }
 
 body {
   font-family: "Raleway", sans-serif; }

@@ -1,0 +1,22 @@
+.menu-scoring {
+    text-align: center;
+    color: $black;
+
+    .menu-scoring-score {
+        font-size: 2em;
+        font-weight: 200;
+        margin: .2em 0;
+    }
+
+    .menu-scoring-legend {
+        &:after {
+            width: 1.7em;
+            height: 1.7em;
+            background: url('../img/point_ico_blck.svg') no-repeat center center;
+            background-size: contain;
+            content :'';
+            display: block;
+            margin : 0 auto;
+        }
+    }
+}
