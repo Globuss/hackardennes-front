@@ -9790,14 +9790,14 @@ a.button {
   transition-duration: 0s; }
 
 .main-menu {
-  background: #aae6bf;
+  background: #a4d1bd;
   width: 100vw !important; }
   .main-menu .item {
     background: none;
     color: #fff;
-    border-bottom: none;
     overflow: visible;
-    line-height: 1; }
+    line-height: 1;
+    border: none; }
   .main-menu .item-content {
     background: none;
     font-size: 11vw;
@@ -9947,7 +9947,8 @@ a.button {
   font-size: 1.2em;
   line-height: 1.5;
   font-weight: 400;
-  padding: 1em 0;
+  padding-top: 1em;
+  padding-bottom: 1em;
   color: #666; }
 
 .parcours-page .parcours-page-actions {
@@ -10085,13 +10086,13 @@ body {
   font-family: "Raleway", sans-serif; }
 
 .top-bar {
-  background: #aae6bf;
+  background: #a4d1bd;
   color: #fff; }
   .top-bar .button {
     color: #111; }
 
 .map-nav {
-  background: #aae6bf; }
+  background: #a4d1bd; }
   .map-nav .button {
     color: #111; }
 
