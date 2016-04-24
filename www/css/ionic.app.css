@@ -9790,14 +9790,14 @@ a.button {
   transition-duration: 0s; }
 
 .main-menu {
-  background: #aae6bf;
+  background: #a2ceb6;
   width: 100vw !important; }
   .main-menu .item {
     background: none;
     color: #fff;
-    border-bottom: none;
     overflow: visible;
-    line-height: 1; }
+    line-height: 1;
+    border: none; }
   .main-menu .item-content {
     background: none;
     font-size: 11vw;
@@ -10085,13 +10085,13 @@ body {
   font-family: "Raleway", sans-serif; }
 
 .top-bar {
-  background: #aae6bf;
+  background: #a2ceb6;
   color: #fff; }
   .top-bar .button {
     color: #111; }
 
 .map-nav {
-  background: #aae6bf; }
+  background: #a2ceb6; }
   .map-nav .button {
     color: #111; }
 
